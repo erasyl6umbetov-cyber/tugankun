@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Туған күніңмен! 🎂</title>
+<style>
+*{box-sizing:border-box}body{margin:0;font-family:Arial,sans-serif;background:linear-gradient(135deg,#160b2e,#4b174f,#8f3158);color:#fff;min-height:100vh}
+.wrap{max-width:700px;margin:auto;padding:22px 16px 50px;text-align:center}
+.card{background:rgba(255,255,255,.11);border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(12px);border-radius:28px;padding:28px 20px;margin:16px 0;box-shadow:0 15px 45px rgba(0,0,0,.25)}
+h1{font-size:42px;margin:12px 0;background:linear-gradient(90deg,#ffd76a,#fff,#ff9ac5);-webkit-background-clip:text;color:transparent}
+h2{margin:8px 0 18px}.date{font-size:18px;opacity:.9}.emoji{font-size:65px}
+p{line-height:1.6}.btn{display:block;width:100%;padding:16px;margin:12px 0;border:0;border-radius:18px;font-size:17px;font-weight:700;text-decoration:none;cursor:pointer}
+.wh{background:#25d366;color:#fff}.kaspi{background:#e31d3b;color:#fff}.music{background:#fff;color:#4b174f}
+input,textarea{width:100%;padding:15px;border:0;border-radius:15px;margin:7px 0;font-size:16px;outline:none}textarea{min-height:120px;resize:vertical}
+.small{font-size:13px;opacity:.75}.heart{font-size:24px}
+
+.photo-card{padding:12px;overflow:hidden}.birthday-photo{display:block;width:100%;height:auto;border-radius:20px;object-fit:cover;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="card">
+    <div class="emoji">🎂🎉🎁</div>
+    <h1>Туған күніңмен!</h1>
+    <div class="date">05.10.2026</div>
+    <p>Бүгінгі ерекше күніңіз қуанышқа, бақытқа және әдемі сәттерге толы болсын! ❤️</p>
+    <button class="btn music" id="musicBtn">🎵 Музыканы қосу</button>
+  </div>
+
+
+  <div class="card photo-card">
+    <img class="birthday-photo" src="birthday-photo.jpeg" alt="Туған күн иесі">
+  </div>
+
+  <div class="card">
+    <h2>💌 Тілек қалдыру</h2>
+    <input id="name" placeholder="Атыңыз">
+    <textarea id="msg" placeholder="Туған күн иесіне жылы тілегіңізді жазыңыз..."></textarea>
+    <button class="btn wh" onclick="sendWish()">❤️ WhatsApp арқылы жіберу</button>
+  </div>
+
+  <div class="card">
+    <h2>🎁 Сыйлық жіберу</h2>
+    <p>Қаласаңыз, туған күн иесіне Kaspi арқылы сыйлық жібере аласыз ❤️</p>
+    <a class="btn kaspi" href="tel:7766604021">💳 Kaspi: 7 766 604 021</a>
+    <div class="small">Kaspi батырмасын басып, көрсетілген нөмірге ақша аударуға болады.</div>
+  </div>
+
+  <div class="card">
+    <div class="heart">💖</div>
+    <p>Келіп, ақ тілегіңізді білдіргеніңізге рақмет!</p>
+  </div>
+</div>
+
+<audio id="audio" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+const WHATSAPP_NUMBER="77079491156";
+const audio=document.getElementById("audio");
+const btn=document.getElementById("musicBtn");
+
+async function playMusic(){
+  try{await audio.play();btn.textContent="🔊 Музыка ойнап тұр";}catch(e){btn.textContent="🎵 Музыканы қосу";}
+}
+window.addEventListener("load",playMusic);
+btn.addEventListener("click",async()=>{
+  if(audio.paused){await playMusic()}else{audio.pause();btn.textContent="🎵 Музыканы қосу";}
+});
+
+function sendWish(){
+  const name=document.getElementById("name").value.trim();
+  const msg=document.getElementById("msg").value.trim();
+  if(!name || !msg){alert("Атыңызды және тілегіңізді жазыңыз ❤️");return;}
+  const text=`🎂 Туған күніңмен!\n\n${name}:\n${msg}`;
+  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(text)}`,"_blank");
+}
+</script>
+</body>
+</html>
